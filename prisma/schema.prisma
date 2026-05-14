@@ -1,0 +1,73 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Get a free hosted Postgres database in seconds: `npx create-db`
+
+generator client {
+  provider = "prisma-client-js"
+  output   = "../lib/generated/prisma"
+}
+
+datasource db {
+  provider = "mysql"
+}
+
+model User {
+  id       Int    @id @default(autoincrement())
+  username String
+  email    String @unique
+  password String
+
+  cars_created Car[] @relation("CarCreatedBy")
+  cars_updated Car[] @relation("CarUpdatedBy")
+  cars_deleted Car[] @relation("CarDeletedBy")
+
+  @@map("master_user")
+}
+
+model Car {
+  id              Int       @id @default(autoincrement())
+  type_id         Int
+  transmission_id Int
+  name            String
+  year            Int       @db.UnsignedSmallInt
+  odometer        Int       @db.UnsignedInt
+  price           Int       @db.UnsignedInt
+  credit          Int       @db.UnsignedInt
+  image           String    @db.VarChar(500)
+  created_by      Int
+  updated_by      Int?
+  deleted_by      Int?
+  created_at      DateTime  @default(now())
+  updated_at      DateTime  @updatedAt
+  deleted_at      DateTime?
+
+  // Relations
+  car_types         CarType         @relation(fields: [type_id], references: [id])
+  car_transmissions CarTransmission @relation(fields: [transmission_id], references: [id])
+  creator           User            @relation("CarCreatedBy", fields: [created_by], references: [id])
+  updater           User?           @relation("CarUpdatedBy", fields: [updated_by], references: [id])
+  deletor           User?           @relation("CarDeletedBy", fields: [deleted_by], references: [id])
+
+  @@map("master_cars")
+}
+
+model CarType {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  created_at DateTime @default(now())
+
+  cars Car[]
+
+  @@map("car_types")
+}
+
+model CarTransmission {
+  id         Int      @id @default(autoincrement())
+  name       String   @unique
+  created_at DateTime @default(now())
+
+  cars Car[]
+
+  @@map("car_transmissions")
+}
