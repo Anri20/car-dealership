@@ -9,7 +9,7 @@ generator client {
 }
 
 datasource db {
-  provider = "mysql"
+  provider = "postgresql"
 }
 
 model User {
@@ -26,30 +26,46 @@ model User {
 }
 
 model Car {
-  id              Int       @id @default(autoincrement())
+  id              Int    @id @default(autoincrement())
   type_id         Int
   transmission_id Int
   name            String
-  year            Int       @db.UnsignedSmallInt
-  odometer        Int       @db.UnsignedInt
-  price           Int       @db.UnsignedInt
-  credit          Int       @db.UnsignedInt
-  image           String    @db.VarChar(500)
-  created_by      Int
-  updated_by      Int?
-  deleted_by      Int?
-  created_at      DateTime  @default(now())
-  updated_at      DateTime  @updatedAt
-  deleted_at      DateTime?
+  desc            String @db.Text
+  year            Int    @db.SmallInt
+  odometer        Int
+  price           Int
+  credit          Int
 
-  // Relations
+  created_by Int
+  updated_by Int?
+  deleted_by Int?
+  created_at DateTime  @default(now())
+  updated_at DateTime  @updatedAt
+  deleted_at DateTime?
+
   car_types         CarType         @relation(fields: [type_id], references: [id])
   car_transmissions CarTransmission @relation(fields: [transmission_id], references: [id])
+  car_images        CarImage[]
   creator           User            @relation("CarCreatedBy", fields: [created_by], references: [id])
   updater           User?           @relation("CarUpdatedBy", fields: [updated_by], references: [id])
   deletor           User?           @relation("CarDeletedBy", fields: [deleted_by], references: [id])
 
   @@map("master_cars")
+}
+
+model CarImage {
+  id     Int @id @default(autoincrement())
+  car_id Int
+
+  url       String
+  isPrimary Boolean @default(false)
+  order     Int     @default(0)
+
+  created_at DateTime @default(now())
+
+  car Car @relation(fields: [car_id], references: [id])
+
+  @@map("car_images")
 }
 
 model CarType {
