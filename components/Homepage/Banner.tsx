@@ -26,12 +26,12 @@ const Banner = () => {
                         <p className="text-gray-400 text-base lg:text-lg">We handpick cars we would buy. Safe choices, honest prices, and a guarantee that actually matters.</p>
                     </div>
 
-                    <div className="flex lg:gap-5 justify-between lg:justify-start items-center">
-                        <Button className="p-6 text-base">View Vacant Car</Button>
-                        <Button variant={"secondary"} className="p-6 text-base">Get In Touch</Button>
+                    <div className="flex gap-5 justify-start lg:justify-between lg:justify-start items-center">
+                        <Button className="p-5 lg:p-6 text-sm lg:text-base">View Vacant Car</Button>
+                        <Button variant={"secondary"} className="p-5 lg:p-6 text-sm lg:text-base">Get In Touch</Button>
                     </div>
 
-                    <div className="flex justify-between">
+                    <div className="flex gap-5 justify-start lg:justify-between">
                         <div>
                             <p className="text-2xl lg:text-3xl font-extrabold">600+</p>
                             <p className="text-xs text-gray-500">Sold Cars</p>

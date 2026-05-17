@@ -18,9 +18,6 @@ const totalReview = 85
 const Stars = () => (
     <div className="flex gap-1">
         {Array.from({ length: 5 }).map((_, i) => (
-            // <svg key={i} className="w-4 h-4 text-[#f5a623] fill-current" viewBox="0 0 20 20">
-            //     <path d="M10 15l-5.878 3.09 1.122-6.545L.488 6.91l6.561-.955L10 0l2.951 5.955 6.561.955-4.756 4.635 1.122 6.545z" />
-            // </svg>
             <Iconify key={i} icon="material-symbols:star" className="text-[#f59e0b]" />
         ))}
     </div>
