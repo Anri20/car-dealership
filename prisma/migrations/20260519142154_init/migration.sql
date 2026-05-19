@@ -1,11 +1,11 @@
 -- CreateTable
-CREATE TABLE "master_user" (
+CREATE TABLE "master_users" (
     "id" SERIAL NOT NULL,
     "username" TEXT NOT NULL,
     "email" TEXT NOT NULL,
     "password" TEXT NOT NULL,
 
-    CONSTRAINT "master_user_pkey" PRIMARY KEY ("id")
+    CONSTRAINT "master_users_pkey" PRIMARY KEY ("id")
 );
 
 -- CreateTable
@@ -60,7 +60,7 @@ CREATE TABLE "car_transmissions" (
 );
 
 -- CreateIndex
-CREATE UNIQUE INDEX "master_user_email_key" ON "master_user"("email");
+CREATE UNIQUE INDEX "master_users_email_key" ON "master_users"("email");
 
 -- CreateIndex
 CREATE UNIQUE INDEX "car_types_name_key" ON "car_types"("name");
@@ -75,13 +75,13 @@ ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_type_id_fkey" FOREIGN KEY 
 ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_transmission_id_fkey" FOREIGN KEY ("transmission_id") REFERENCES "car_transmissions"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_created_by_fkey" FOREIGN KEY ("created_by") REFERENCES "master_user"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
+ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_created_by_fkey" FOREIGN KEY ("created_by") REFERENCES "master_users"("id") ON DELETE RESTRICT ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_updated_by_fkey" FOREIGN KEY ("updated_by") REFERENCES "master_user"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_updated_by_fkey" FOREIGN KEY ("updated_by") REFERENCES "master_users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
-ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_deleted_by_fkey" FOREIGN KEY ("deleted_by") REFERENCES "master_user"("id") ON DELETE SET NULL ON UPDATE CASCADE;
+ALTER TABLE "master_cars" ADD CONSTRAINT "master_cars_deleted_by_fkey" FOREIGN KEY ("deleted_by") REFERENCES "master_users"("id") ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE "car_images" ADD CONSTRAINT "car_images_car_id_fkey" FOREIGN KEY ("car_id") REFERENCES "master_cars"("id") ON DELETE RESTRICT ON UPDATE CASCADE;

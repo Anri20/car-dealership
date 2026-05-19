@@ -14,7 +14,7 @@ async function main() {
     const hashed = await bcrypt.hash("1234567890", 10)
     const carDescription = "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
 
-    await prisma.user.create({
+    await prisma.master_users.create({
         data: {
             username: "test",
             email: "hjayanata@gmail.com",
@@ -22,7 +22,7 @@ async function main() {
         }
     })
 
-    await prisma.carType.createMany({
+    await prisma.car_types.createMany({
         data: [
             { name: "Electric" },
             { name: "Hybrid" },
@@ -31,14 +31,14 @@ async function main() {
         ]
     })
 
-    await prisma.carTransmission.createMany({
+    await prisma.car_transmissions.createMany({
         data: [
             { name: "Automated" },
             { name: "Manual" },
         ]
     })
 
-    await prisma.car.createMany({
+    await prisma.master_cars.createMany({
         data: [
             {
                 type_id: 3,
@@ -164,7 +164,7 @@ async function main() {
         ]
     })
 
-    await prisma.carImage.createMany({
+    await prisma.car_images.createMany({
         data: [
             { car_id: 1, url: "b62e82_5557bab787034a2b9b807e5ec42d0f3b~mv2.jpg", isPrimary: true },
             { car_id: 2, url: "b62e82_f78e1f73f17a4e3e8a6bcef8fdab86c3~mv2.avif", isPrimary: true },

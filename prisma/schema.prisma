@@ -12,20 +12,18 @@ datasource db {
   provider = "postgresql"
 }
 
-model User {
+model master_users {
   id       Int    @id @default(autoincrement())
   username String
   email    String @unique
   password String
 
-  cars_created Car[] @relation("CarCreatedBy")
-  cars_updated Car[] @relation("CarUpdatedBy")
-  cars_deleted Car[] @relation("CarDeletedBy")
-
-  @@map("master_user")
+  cars_created master_cars[] @relation("CarCreatedBy")
+  cars_updated master_cars[] @relation("CarUpdatedBy")
+  cars_deleted master_cars[] @relation("CarDeletedBy")
 }
 
-model Car {
+model master_cars {
   id              Int    @id @default(autoincrement())
   type_id         Int
   transmission_id Int
@@ -43,17 +41,15 @@ model Car {
   updated_at DateTime  @updatedAt
   deleted_at DateTime?
 
-  car_types         CarType         @relation(fields: [type_id], references: [id])
-  car_transmissions CarTransmission @relation(fields: [transmission_id], references: [id])
-  car_images        CarImage[]
-  creator           User            @relation("CarCreatedBy", fields: [created_by], references: [id])
-  updater           User?           @relation("CarUpdatedBy", fields: [updated_by], references: [id])
-  deletor           User?           @relation("CarDeletedBy", fields: [deleted_by], references: [id])
-
-  @@map("master_cars")
+  car_types         car_types         @relation(fields: [type_id], references: [id])
+  car_transmissions car_transmissions @relation(fields: [transmission_id], references: [id])
+  car_images        car_images[]
+  creator           master_users      @relation("CarCreatedBy", fields: [created_by], references: [id])
+  updater           master_users?     @relation("CarUpdatedBy", fields: [updated_by], references: [id])
+  deletor           master_users?     @relation("CarDeletedBy", fields: [deleted_by], references: [id])
 }
 
-model CarImage {
+model car_images {
   id     Int @id @default(autoincrement())
   car_id Int
 
@@ -63,27 +59,21 @@ model CarImage {
 
   created_at DateTime @default(now())
 
-  car Car @relation(fields: [car_id], references: [id])
-
-  @@map("car_images")
+  car master_cars @relation(fields: [car_id], references: [id])
 }
 
-model CarType {
+model car_types {
   id         Int      @id @default(autoincrement())
   name       String   @unique
   created_at DateTime @default(now())
 
-  cars Car[]
-
-  @@map("car_types")
+  cars master_cars[]
 }
 
-model CarTransmission {
+model car_transmissions {
   id         Int      @id @default(autoincrement())
   name       String   @unique
   created_at DateTime @default(now())
 
-  cars Car[]
-
-  @@map("car_transmissions")
+  cars master_cars[]
 }
