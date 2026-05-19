@@ -6,7 +6,7 @@ import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
 
 const navLinks = [
-    { label: "Cars", href: "/cars" },
+    { label: "Cars", href: "/product/car" },
     { label: "Trade-In", href: "/trade-in" },
     { label: "About Us", href: "/about" },
     { label: "Contact", href: "/contact" },
