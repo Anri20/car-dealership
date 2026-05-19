@@ -4,6 +4,7 @@ import Link from "next/link"
 import * as NavigationMenu from "@radix-ui/react-navigation-menu"
 import { useEffect, useState } from "react"
 import { cn } from "@/lib/utils"
+import { usePathname } from "next/navigation"
 
 const navLinks = [
     { label: "Cars", href: "/product/car" },
@@ -13,6 +14,8 @@ const navLinks = [
 ]
 
 const Navbar = () => {
+    const pathName = usePathname()
+
     const [scrolled, setScrolled] = useState(false)
 
     useEffect(() => {
@@ -24,11 +27,11 @@ const Navbar = () => {
     return (
         <header
             className={cn(
-                "fixed w-full top-0 z-50 px-6 bg-[#101926] transition-all duration-300",
+                "fixed w-full top-0 z-50 px-6 sm:px-12 bg-[#101926] transition-all duration-300",
                 scrolled ? "shadow-md border-b border-gray-600" : ""
             )}
         >
-            <div className="max-w-7xl mx-auto py-4 flex items-center justify-between">
+            <div className="max-w-7xl mx-auto py-5 sm:py-4 lg:py-5 flex items-center justify-between">
                 {/* Logo */}
                 <Link href="/" className="font-bold uppercase">
                     <span className="tracking-[0.15em]">Auto</span>
@@ -43,7 +46,7 @@ const Navbar = () => {
                                 <NavigationMenu.Link asChild>
                                     <Link
                                         href={href}
-                                        className="text-sm text-gray-300 hover:text-[#97d9f0] transition-colors"
+                                        className={cn("text-sm hover:text-[#97d9f0] transition-colors", pathName === href ? "text-[#97d9f0]" : "text-gray-300")}
                                     >
                                         {label}
                                     </Link>

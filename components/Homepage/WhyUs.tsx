@@ -23,7 +23,7 @@ const features = [
 
 const WhyUs = () => {
     return (
-        <section className="px-6 py-10 lg:py-20 bg-[#101926] text-[#f5f5f5]">
+        <section className="px-6 sm:px-12 py-10 lg:py-20 bg-[#101926] text-[#f5f5f5]">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header */}

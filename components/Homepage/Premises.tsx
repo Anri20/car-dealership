@@ -11,7 +11,7 @@ const premises = [
 
 const Premises = () => {
     return (
-        <section className="px-6 py-10 lg:py-20 bg-[#f0f2f4] text-[#101926]">
+        <section className="px-6 sm:px-12 py-10 lg:py-20 bg-[#f0f2f4] text-[#101926]">
             <div className="max-w-7xl mx-auto">
                 {/* Header */}
                 <div className="space-y-3 mb-12">

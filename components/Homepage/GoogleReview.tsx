@@ -3,6 +3,12 @@
 import Link from "next/link"
 import Iconify from "../Iconify"
 import useMediaQuery from "@/hooks/useMediaQuery"
+import { master_cars } from "@/lib/generated/prisma"
+
+interface Review {
+    name: string,
+    text: string
+}
 
 const reviews = [
     { name: "Marte K.", text: "Bought a car without seeing it physically. Come exactly as it was described. Isaac responded to all messages within minutes. Recommended!" },
@@ -24,10 +30,23 @@ const Stars = () => (
 )
 
 const GoogleReviews = () => {
-    const isDesktop = useMediaQuery("(min-width: 1024px)")
+    const isMobile = useMediaQuery("(max-width: 512px)")
+    const isMobileLandscape = useMediaQuery("(max-width: 1024px)")
+
+    const visibleReviews = (products: Review[]) => {
+        if (isMobile) {
+            return products.slice(0, 3)
+        }
+
+        if (isMobileLandscape) {
+            return products.slice(0, 4)
+        }
+
+        return products
+    }
 
     return (
-        <section className="px-6 py-10 lg:py-20 bg-[#101926] text-[#f5f5f5]">
+        <section className="px-6 sm:px-12 py-10 lg:py-20 bg-[#101926] text-[#f5f5f5]">
             <div className="max-w-7xl mx-auto">
 
                 {/* Summary banner */}
@@ -48,8 +67,8 @@ const GoogleReviews = () => {
                 </div>
 
                 {/* Review cards */}
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-4">
-                    {reviews.slice(0, isDesktop ? 6 : 3).map((review) => (
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                    {visibleReviews(reviews).map((review) => (
                         <div
                             key={review.name}
                             className="bg-[#162030] border border-white/10 rounded-xl p-6 flex flex-col gap-4"

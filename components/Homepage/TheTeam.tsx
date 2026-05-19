@@ -9,7 +9,7 @@ const teamData = [
 
 const TheTeam = () => {
     return (
-        <section className="px-6 py-10 lg:py-20 bg-[#f0f2f4] text-[#0d1b2a]">
+        <section className="px-6 sm:px-12 py-10 lg:py-20 bg-[#f0f2f4] text-[#0d1b2a]">
             <div className="max-w-7xl mx-auto">
 
                 {/* Header */}
@@ -45,7 +45,7 @@ const TheTeam = () => {
                             <div className="p-4">
                                 <h3 className="text-lg text-[#0d1b2a] font-extrabold ">{member.name}</h3>
                                 <p className="mb-2.5 text-xs font-medium text-[#2a6c85]">{member.job_title}</p>
-                                <p className="hidden lg:block text-sm text-[#0d1b2a]/60 leading-relaxed pt-1">{member.job_desc}</p>
+                                <p className="hidden md:block text-sm text-[#0d1b2a]/60 leading-relaxed pt-1">{member.job_desc}</p>
                             </div>
                         </div>
                     ))}

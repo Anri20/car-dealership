@@ -8,7 +8,7 @@ const Banner = () => {
 
     return (
         <section
-            className="flex h-[100vh] px-6 items-center bg-[#101926] text-[#f5f5f5]"
+            className="flex portrait:h-screen landscape:min-h-screen px-6 md:px-12 py-20 items-center bg-[#101926] text-[#f5f5f5]"
         >
             <div className="w-full max-w-7xl  mx-auto flex justify-between items-center">
 
@@ -48,7 +48,7 @@ const Banner = () => {
 
                 </div>
 
-                <div className="hidden lg:block relative w-[50%] h-full rounded-md border border-white overflow-hidden">
+                <div className="hidden md:block relative w-[50%] h-full rounded-md border border-white overflow-hidden">
                     <Image src="/banner.jpg" alt="Banner Photo" fill className="object-cover" />
                 </div>
 

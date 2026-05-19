@@ -27,7 +27,7 @@ const VisitUs = () => {
     const embedUrl = `https://maps.google.com/maps?q=${encodeURIComponent(address)}&output=embed`
 
     return (
-        <section className="px-6 py-10 lg:py-20 bg-[#f5f5f5]">
+        <section className="px-6 sm:px-12 py-10 lg:py-20 bg-[#f5f5f5]">
             <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-start gap-16">
 
                 {/* Left */}
@@ -44,7 +44,7 @@ const VisitUs = () => {
                         </p>
                     </div>
 
-                    <div className="space-y-5">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-1 sm:items-end gap-y-5 sm:gap-y-6">
                         {contactDetails.map((item) => (
                             <div key={item.label} className="space-y-0.5">
                                 <p className="text-[10px] font-bold tracking-[0.1em] text-[#101926]/50 uppercase">

@@ -25,8 +25,8 @@ const options = [
 
 const TradeIn = () => {
     return (
-        <section className="px-6 py-10 lg:py-20 bg-[#101926]">
-            <div className="max-w-7xl mx-auto flex flex-col lg:flex-row items-center gap-16">
+        <section className="px-6 sm:px-12 py-10 lg:py-20 bg-[#101926]">
+            <div className="max-w-7xl mx-auto flex flex-col sm:flex-row items-center gap-8 lg:gap-16">
 
                 {/* Left */}
                 <div className="flex-1 space-y-8">
@@ -54,7 +54,7 @@ const TradeIn = () => {
                 </div>
 
                 {/* Right — Card */}
-                <div className="w-full lg:w-[26rem] bg-[#f5f5f5] rounded-2xl p-8 space-y-5 shadow-2xl">
+                <div className="w-full sm:w-[55%] lg:w-[35%] bg-[#f5f5f5] rounded-2xl p-6 lg:p-8 space-y-5 shadow-2xl">
                     <div className="space-y-1">
                         <h3 className="text-[#101926] text-xl font-bold">
                             What do you want?
