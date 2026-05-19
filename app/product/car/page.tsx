@@ -1,5 +1,6 @@
 import FilterCar from "@/components/Product/Car/FilterCar"
 import ProductCar from "@/components/Product/Car/ProductCar"
+import SortCar from "@/components/Product/Car/SortCar";
 import { prisma } from "@/lib/prisma"
 
 interface CarPageProps {
@@ -7,9 +8,17 @@ interface CarPageProps {
         search?: string | undefined;
         fuel?: string | undefined;
         transmission?: string | undefined;
-        price?: string | undefined
-        mileage?: string | undefined
+        price?: string | undefined;
+        mileage?: string | undefined;
+        sort?: string | undefined;
     }>
+}
+
+const SORT_MAP: Record<string, object> = {
+    "newest": {created_at: "desc"},
+    "price_low": {price: "asc"},
+    "price_high": {price: "desc"},
+    "km_low": {odometer: "asc"},
 }
 
 export default async function CarPage({ searchParams }: CarPageProps) {
@@ -36,13 +45,16 @@ export default async function CarPage({ searchParams }: CarPageProps) {
                 }),
                 ...(params.mileage && {
                     odometer: { lte: Number(params.mileage) },
-                }),
+                })
             },
             include: {
                 car_types: { select: { name: true } },
                 car_transmissions: { select: { name: true } },
                 car_images: { select: { url: true } },
             },
+            ...(params.sort && {
+                orderBy: SORT_MAP[params.sort],
+            })
         }),
         prisma.car_types.findMany({ select: { name: true } }).then((t) => t.map((x) => x.name)),
         prisma.car_transmissions.findMany({ select: { name: true } }).then((t) => t.map((x) => x.name)),
@@ -68,9 +80,12 @@ export default async function CarPage({ searchParams }: CarPageProps) {
                     maxOdometer={stats.maxOdometer}
                 />
                 <div className="flex-1 space-y-6">
-                    <div className="space-y-1">
-                        <h2 className="text-4xl text-[#0d1b2a] font-semibold">Vacancies</h2>
-                        <p className="ps-1 text-[#0d1b2a]/50">{cars.length} {`car${cars.length > 2 ? "s" : ""}`} available</p>
+                    <div className="flex justify-between items-center">
+                        <div className="space-y-1">
+                            <h2 className="text-4xl text-[#0d1b2a] font-semibold">Vacancies</h2>
+                            <p className="ps-1 text-[#0d1b2a]/50">{cars.length} {`car${cars.length > 2 ? "s" : ""}`} available</p>
+                        </div>
+                        <SortCar />
                     </div>
                     <ProductCar products={cars} />
                 </div>

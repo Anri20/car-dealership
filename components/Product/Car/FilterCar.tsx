@@ -33,8 +33,9 @@ const FilterCar = ({ types, transmissions, maxPrice, maxOdometer }: FilterCarPro
         searchParams.has("search") ||
         searchParams.has("fuel") ||
         searchParams.has("transmission") ||
+        searchParams.has("sort") ||
         (searchParams.has("maxPrice") && Number(searchParams.get("maxPrice")) < maxPrice) ||
-        (searchParams.has("maxOdometer") && Number(searchParams.get("maxOdometer")) < maxOdometer);
+        (searchParams.has("maxOdometer") && Number(searchParams.get("maxOdometer")) < maxOdometer)
 
 
     function toggleFuel(fuel: string) {
