@@ -1,14 +1,19 @@
-import { Car } from "@/lib/generated/prisma"
+"use client"
+
+import { master_cars } from "@/lib/generated/prisma"
 import ProductItem from "../Product/ProductItem"
-import { Button } from "../ui/button"
 import Link from "next/link"
+import useMediaQuery from "@/hooks/useMediaQuery"
 
 interface VacanciesProps {
-    products: Car[]
+    products: master_cars[]
 }
 
 
 const Vacancies = ({ products }: VacanciesProps) => {
+    const isDesktop = useMediaQuery("(min-width: 1024px)")
+    const visibleProducts = isDesktop ? products : products.slice(0, 3)
+
     return (
         <section className="px-6 py-10 lg:py-20 bg-[#f0f2f4] text-[#0d1b2a]">
             <div className="flex max-w-7xl mx-auto flex-col gap-12">
@@ -25,8 +30,8 @@ const Vacancies = ({ products }: VacanciesProps) => {
                 </div>
 
                 {/* Cards Grid */}
-                <div className="grid grid-cols-2 lg:grid-cols-3 gap-5">
-                    {products.map((product, i) => (
+                <div className="grid grid-cols-1 lg:grid-cols-2 lg:grid-cols-3 gap-5">
+                    {visibleProducts.map((product, i) => (
                         <ProductItem key={i} product={product} />
                     ))}
                 </div>

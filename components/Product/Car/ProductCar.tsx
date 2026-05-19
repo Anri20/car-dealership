@@ -1,8 +1,8 @@
-import { Car } from "@/lib/generated/prisma"
+import { master_cars } from "@/lib/generated/prisma"
 import ProductItem from "../ProductItem"
 
 interface ProductCarProps {
-    products: Car[]
+    products: master_cars[]
 }
 
 const ProductCar = ({ products }: ProductCarProps) => {

@@ -20,7 +20,7 @@ export default async function CarPage({ searchParams }: CarPageProps) {
     const transmissions = params.transmission?.split(",")
 
     const [cars, carTypes, carTransmissions] = await Promise.all([
-        prisma.car.findMany({
+        prisma.master_cars.findMany({
             where: {
                 ...(params.search && {
                     name: { contains: params.search },
@@ -44,12 +44,12 @@ export default async function CarPage({ searchParams }: CarPageProps) {
                 car_images: { select: { url: true } },
             },
         }),
-        prisma.carType.findMany({ select: { name: true } }).then((t) => t.map((x) => x.name)),
-        prisma.carTransmission.findMany({ select: { name: true } }).then((t) => t.map((x) => x.name)),
+        prisma.car_types.findMany({ select: { name: true } }).then((t) => t.map((x) => x.name)),
+        prisma.car_transmissions.findMany({ select: { name: true } }).then((t) => t.map((x) => x.name)),
     ]);
 
     // Always compute stats from unfiltered data
-    const allCars = await prisma.car.findMany({ select: { price: true, odometer: true } });
+    const allCars = await prisma.master_cars.findMany({ select: { price: true, odometer: true } });
     const stats = allCars.reduce(
         (acc, car) => ({
             maxPrice: Math.max(acc.maxPrice, car.price),

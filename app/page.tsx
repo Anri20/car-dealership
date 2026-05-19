@@ -11,7 +11,14 @@ import { getRandomItems } from "@/lib/utils";
 
 export default async function Home() {
 
-	const cars = await prisma.car.findMany({
+	const randomIds = await prisma.$queryRaw<{ id: number }[]>`
+		SELECT id FROM master_cars ORDER BY RANDOM() LIMIT 6
+	`
+
+	const cars = await prisma.master_cars.findMany({
+		where: {
+			id: { in: randomIds.map(r => r.id) }
+		},
 		include: {
 			car_types: { select: { name: true } },
 			car_transmissions: { select: { name: true } },
@@ -19,12 +26,10 @@ export default async function Home() {
 		}
 	})
 
-	const visibleCars = getRandomItems(cars, 6)
-
 	return (
 		<main>
 			<Banner />
-			<Vacancies products={visibleCars} />
+			<Vacancies products={cars} />
 			<WhyUs />
 			<TheTeam />
 			<GoogleReviews />
