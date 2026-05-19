@@ -5,13 +5,13 @@ import { NextResponse } from 'next/server';
 export async function POST(req: Request) {
     const { username, email, password } = await req.json()
 
-    const existing = await prisma.user.findUnique({ where: { email } })
+    const existing = await prisma.master_users.findUnique({ where: { email } })
     if (existing) {
         return NextResponse.json({ message: "Email is already in use" }, { status: 409 })
     }
 
     const hashed = await bcrypt.hash(password, 10)
-    const user = await prisma.user.create({
+    const user = await prisma.master_users.create({
         data: { username, email, password: hashed },
         select: { id: true, username: true, email: true },
     })

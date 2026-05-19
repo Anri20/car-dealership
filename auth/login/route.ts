@@ -8,7 +8,7 @@ const ONE_HOUR = 60 * 60
 export async function POST(req: Request) {
     const { email, password } = await req.json()
 
-    const user = await prisma.user.findUnique({ where: { email } })
+    const user = await prisma.master_users.findUnique({ where: { email } })
     if (!user) {
         return NextResponse.json({ message: "Invalid credentials" }, { status: 401 })
     }
