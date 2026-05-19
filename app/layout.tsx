@@ -6,6 +6,10 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { cn } from "@/lib/utils";
 
+import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from '@vercel/speed-insights/next';
+
+
 const urbanist = Urbanist({
   subsets: ['latin'],
   variable: '--font-urbanist'
@@ -15,6 +19,7 @@ const inter = Inter({
   subsets: ['latin'],
   variable: '--font-inter'
 })
+
 
 export const metadata: Metadata = {
   title: "AutoKraft",
@@ -37,9 +42,11 @@ export default function RootLayout({
     >
 
       <body className="min-h-full flex flex-col bg-[#101926] text-[#f5f5f5]">
+        <Analytics />
+        <SpeedInsights />
         <Navbar />
         <div>{children}</div>
-        <Footer/>
+        <Footer />
       </body>
     </html>
   );
